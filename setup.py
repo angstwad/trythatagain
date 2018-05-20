@@ -11,11 +11,13 @@ setup(
     author='Paul Durivage',
     author_email='pauldurivage@gmail.com',
     description='Decorators for functions that you wish to retry',
-    test_requirements=[
-        'pytest',
-        'pytest-mocker',
-        'flake8',
-    ],
+    extras_require={
+        'test': [
+            'pytest',
+            'pytest-mock',
+            'flake8',
+        ]
+    },
     classifiers=[
         'Topic :: Utilities',
         'Intended Audience :: Developers',
