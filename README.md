@@ -1,5 +1,7 @@
 # trythatagain
 
+[![Build Status](https://travis-ci.org/angstwad/trythatagain.svg?branch=master)](https://travis-ci.org/angstwad/trythatagain)
+
 This provides decorators for super simple function/method call retries when an exception is raised.
 
 ## Installation
