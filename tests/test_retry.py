@@ -159,6 +159,20 @@ def test_retry_wait_func(mocker):
     assert mock.call_count is 3
 
 
+def test_multiple_calls():
+    local = {'runs': 0}
+
+    @retry
+    def foo():
+        local['runs'] += 1
+        if local['runs'] % 2 == 0:
+            return True
+        raise ValueError('test')
+
+    assert foo()
+    assert foo()
+
+
 def test_retry_exp_backoff(mocker):
     mocker.patch('trythatagain.waiters.time')
 

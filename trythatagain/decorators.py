@@ -29,11 +29,6 @@ def retry(func=None, self=None, retries=3, raise_for=None, reraise=True,
         retries; requires `wait_func`
 
     """
-    local = {
-        "tries": 0,
-        "exc": None
-    }
-
     if raise_for is None:
         raise_for = NoneType
 
@@ -43,15 +38,27 @@ def retry(func=None, self=None, retries=3, raise_for=None, reraise=True,
 
     @wraps(func)
     def wrapped(*args, **kwargs):
+        local = {
+            "tries": 0,
+            "exc": None
+        }
+
+        def reset():
+            local['tries'] = 0
+            local['exc'] = None
+
         while local['tries'] < retries or retries == 0:
             local['tries'] += 1
             try:
                 if self is not None:
-                    return func(self, *args, **kwargs)
+                    retval = func(self, *args, **kwargs)
                 else:
-                    return func(*args, **kwargs)
+                    retval = func(*args, **kwargs)
+                reset()
+                return retval
             except Exception as e:
-                local['exc'] = e
+                if local['exc'] is None:
+                    local['exc'] = e
 
                 try:
                     if isinstance(e, raise_for):
