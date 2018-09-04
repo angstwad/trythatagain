@@ -65,7 +65,7 @@ def retry(func=None, self=None, retries=3, raise_for=None, reraise=True,
                         raise e
                 except TypeError:
                     raise TypeError(
-                        "'ignore' kwarg must be a class, type, or tuple of "
+                        "'raise_for' kwarg must be a class, type, or tuple of "
                         "classes and types"
                     )
 
